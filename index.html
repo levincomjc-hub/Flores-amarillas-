@@ -12,6 +12,8 @@
       font-family: 'Segoe Script', cursive;
       color: white;
     }
+
+    /* Globos con LOVE */
     .balloons {
       position: absolute;
       top: 20px;
@@ -21,8 +23,9 @@
       width: 100%;
       font-size: 3em;
       font-weight: bold;
-      z-index: 3;
+      z-index: 2;
     }
+
     .balloon {
       width: 80px;
       height: 100px;
@@ -36,13 +39,16 @@
       text-shadow: 1px 1px 4px #000;
       animation: float 6s ease-in-out infinite;
     }
+
     .balloon:nth-child(2) { background: pink; animation-delay: 1s; }
     .balloon:nth-child(3) { background: purple; animation-delay: 2s; }
     .balloon:nth-child(4) { background: crimson; animation-delay: 3s; }
+
     @keyframes float {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-20px); }
     }
+
     .balloon::after {
       content: '';
       position: absolute;
@@ -51,17 +57,8 @@
       height: 30px;
       background: #fff;
     }
-    .bouquet {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      max-width: 320px;
-      border-radius: 15px;
-      box-shadow: 0px 0px 20px rgba(255, 215, 0, 0.8);
-      z-index: 1;
-      opacity: 0.9;
-    }
+
+    /* Mensaje en el medio con brillo */
     .message {
       position: absolute;
       top: 40%;
@@ -74,6 +71,7 @@
       text-align: center;
       animation: glow 2s ease-in-out infinite alternate;
     }
+
     @keyframes glow {
       from {
         text-shadow: 0 0 10px #ffea00, 0 0 20px #ffd600;
@@ -84,6 +82,8 @@
         transform: translate(-50%, -50%) scale(1.05);
       }
     }
+
+    /* Botón romántico */
     .btn {
       position: absolute;
       top: 58%;
@@ -101,10 +101,13 @@
       transition: 0.3s;
       z-index: 2;
     }
+
     .btn:hover {
       background: #fbc02d;
       transform: translate(-50%, -50%) scale(1.1);
     }
+
+    /* Mensaje secreto (mini poema) */
     .hidden-message {
       position: absolute;
       top: 72%;
@@ -121,10 +124,25 @@
       line-height: 1.6em;
       animation: fadeIn 2s ease-in-out forwards;
     }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translate(-50%, -40%); }
       to { opacity: 1; transform: translate(-50%, -50%); }
     }
+
+    /* Imagen del ramo */
+    .bouquet {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 250px;
+      border-radius: 12px;
+      box-shadow: 0px 0px 15px rgba(255, 215, 0, 0.6);
+      z-index: 2;
+    }
+
+    /* Canvas de fuegos artificiales */
     canvas {
       position: fixed;
       top: 0;
@@ -136,16 +154,24 @@
   </style>
 </head>
 <body>
+  <!-- Fuegos artificiales -->
   <canvas id="fireworks"></canvas>
+
+  <!-- Globos con LOVE -->
   <div class="balloons">
     <div class="balloon">L</div>
     <div class="balloon">O</div>
     <div class="balloon">V</div>
     <div class="balloon">E</div>
   </div>
-  <img class="bouquet" src="https://i.ibb.co/jMw3hpL/ramo-flores-amarillas.jpg" alt="Ramo de flores amarillas">
+
+  <!-- Mensaje en el medio -->
   <div class="message">🌼 Para ti, mi amada Jakeline 💛</div>
+
+  <!-- Botón romántico -->
   <button class="btn" onclick="showMessage()">💌 Para ti</button>
+
+  <!-- Mensaje secreto (mini poema) -->
   <div class="hidden-message" id="secretMessage">
     “En cada flor amarilla,<br>
     te envío un pedacito de mi alma,<br>
@@ -156,11 +182,17 @@
     y mientras el tiempo nos acerque,<br>
     te guardo siempre en mi corazón.” 💕✨
   </div>
+
+  <!-- Imagen de ramo -->
+  <img class="bouquet" src="https://i.ibb.co/jMw3hpL/ramo-flores-amarillas.jpg" alt="Ramo de flores amarillas">
+
   <script>
+    // 🎆 Fuegos artificiales
     const canvas = document.getElementById("fireworks");
     const ctx = canvas.getContext("2d");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+
     class Firework {
       constructor(x, y, color) {
         this.x = x;
@@ -194,6 +226,7 @@
         });
       }
     }
+
     let fireworks = [];
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -212,10 +245,13 @@
       requestAnimationFrame(animate);
     }
     animate();
+
     window.onresize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     };
+
+    // 💌 Mostrar mensaje secreto
     function showMessage() {
       document.getElementById("secretMessage").style.display = "block";
     }
