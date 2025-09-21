@@ -1,100 +1,260 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Feliz Día de las Flores Amarillas 🌼</title>
+  <meta charset="UTF-8">
+  <title>🌼 Para ti Jakeline 🌼</title>
   <style>
     body {
       margin: 0;
-      font-family: "Segoe UI", sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      background: #000;
+      font-family: 'Segoe Script', cursive;
+      color: white;
+    }
+
+    /* Globos con LOVE */
+    .balloons {
+      position: absolute;
+      top: 20px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      width: 100%;
+      font-size: 3em;
+      font-weight: bold;
+      z-index: 2;
+    }
+
+    .balloon {
+      width: 80px;
+      height: 100px;
+      background: red;
+      border-radius: 50% 50% 45% 45%;
+      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      background: linear-gradient(180deg, #fffefc 0%, #fff9e6 100%);
+      color: white;
+      text-shadow: 1px 1px 4px #000;
+      animation: float 6s ease-in-out infinite;
     }
-    .card {
-      text-align: center;
-      background: #ffffffcc;
-      padding: 24px;
-      border-radius: 18px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
-      max-width: 600px;
+
+    .balloon:nth-child(2) { background: pink; animation-delay: 1s; }
+    .balloon:nth-child(3) { background: purple; animation-delay: 2s; }
+    .balloon:nth-child(4) { background: crimson; animation-delay: 3s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
     }
-    .title {
-      font-size: 1.6rem;
-      margin-bottom: 10px;
-      color: #5a4200;
+
+    .balloon::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      width: 2px;
+      height: 30px;
+      background: #fff;
     }
-    .flowers, .hearts {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin: 14px 0;
-    }
-    .flower, .heart {
-      font-size: 36px;
-      transform-origin: center;
-    }
-    /* Animación flores flotando */
-    .flower {
-      animation: floatUp 1.6s ease-in-out infinite;
-    }
-    .flower:nth-child(1){ animation-delay: 0s }
-    .flower:nth-child(2){ animation-delay: 0.2s }
-    .flower:nth-child(3){ animation-delay: 0.4s }
-    .flower:nth-child(4){ animation-delay: 0.6s }
-    .flower:nth-child(5){ animation-delay: 0.8s }
-    @keyframes floatUp {
-      0%{ transform: translateY(0) scale(0.95); opacity:0.85 }
-      50%{ transform: translateY(-12px) scale(1.05); opacity:1 }
-      100%{ transform: translateY(0) scale(0.95); opacity:0.9 }
-    }
-    /* Corazones latiendo */
-    .heart {
-      animation: pulse 1.2s ease-in-out infinite;
-      color: #e6a400;
-    }
-    .heart:nth-child(odd){ animation-delay: 0.2s }
-    .heart:nth-child(even){ animation-delay: 0.5s }
-    @keyframes pulse {
-      0%{ transform: scale(0.9); opacity:0.9 }
-      50%{ transform: scale(1.2); opacity:1 }
-      100%{ transform: scale(0.9); opacity:0.9 }
-    }
+
+    /* Mensaje en el medio con brillo */
     .message {
-      background: #fff7e0;
-      padding: 16px;
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3em;
+      color: #ffd600;
+      text-shadow: 0 0 15px #ffea00, 0 0 30px #ffea00;
+      z-index: 2;
+      text-align: center;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #ffea00, 0 0 20px #ffd600;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      to {
+        text-shadow: 0 0 25px #fff176, 0 0 45px #ffea00;
+        transform: translate(-50%, -50%) scale(1.05);
+      }
+    }
+
+    /* Botón romántico */
+    .btn {
+      position: absolute;
+      top: 58%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fdd835;
+      color: #000;
+      font-size: 1.2em;
+      font-weight: bold;
+      padding: 12px 24px;
+      border-radius: 25px;
+      text-decoration: none;
+      box-shadow: 0 0 15px rgba(255, 255, 0, 0.8);
+      cursor: pointer;
+      transition: 0.3s;
+      z-index: 2;
+    }
+
+    .btn:hover {
+      background: #fbc02d;
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    /* Mensaje secreto (mini poema) */
+    .hidden-message {
+      position: absolute;
+      top: 72%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.3em;
+      color: #ff80ab;
+      text-shadow: 0 0 10px #ff4081;
+      z-index: 2;
+      display: none;
+      width: 80%;
+      max-width: 600px;
+      text-align: center;
+      line-height: 1.6em;
+      animation: fadeIn 2s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -40%); }
+      to { opacity: 1; transform: translate(-50%, -50%); }
+    }
+
+    /* Imagen del ramo */
+    .bouquet {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 250px;
       border-radius: 12px;
-      font-size: 1.05rem;
-      color: #5a4200;
-      margin-top: 12px;
+      box-shadow: 0px 0px 15px rgba(255, 215, 0, 0.6);
+      z-index: 2;
+    }
+
+    /* Canvas de fuegos artificiales */
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1 class="title">Feliz Día de las Flores Amarillas 🌼</h1>
-    <div class="flowers">
-      <div class="flower">🌼</div>
-      <div class="flower">🌼</div>
-      <div class="flower">🌼</div>
-      <div class="flower">🌼</div>
-      <div class="flower">🌼</div>
-    </div>
-    <div class="hearts">
-      <div class="heart">💛</div>
-      <div class="heart">💛</div>
-      <div class="heart">💛</div>
-    </div>
-    <div class="message">
-      🌼💛🌼💛🌼<br>
-      Para ti, mi amorcito.  
-      Gracias por iluminar mi vida como estas flores amarillas ✨  
-      🌼💛🌼💛🌼
-    </div>
+  <!-- Fuegos artificiales -->
+  <canvas id="fireworks"></canvas>
+
+  <!-- Globos con LOVE -->
+  <div class="balloons">
+    <div class="balloon">L</div>
+    <div class="balloon">O</div>
+    <div class="balloon">V</div>
+    <div class="balloon">E</div>
   </div>
+
+  <!-- Mensaje en el medio -->
+  <div class="message">🌼 Para ti, mi amada Jakeline 💛</div>
+
+  <!-- Botón romántico -->
+  <button class="btn" onclick="showMessage()">💌 Para ti</button>
+
+  <!-- Mensaje secreto (mini poema) -->
+  <div class="hidden-message" id="secretMessage">
+    “En cada flor amarilla,<br>
+    te envío un pedacito de mi alma,<br>
+    aunque la distancia nos separe,<br>
+    mi amor por ti nunca se calma.” 💛🌼<br><br>
+    “Eres mi sol en los días grises,<br>
+    mi fuerza, mi ternura, mi razón,<br>
+    y mientras el tiempo nos acerque,<br>
+    te guardo siempre en mi corazón.” 💕✨
+  </div>
+
+  <!-- Imagen de ramo -->
+  <img class="bouquet" src="https://i.ibb.co/jMw3hpL/ramo-flores-amarillas.jpg" alt="Ramo de flores amarillas">
+
+  <script>
+    // 🎆 Fuegos artificiales
+    const canvas = document.getElementById("fireworks");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    class Firework {
+      constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.particles = [];
+        for (let i = 0; i < 50; i++) {
+          this.particles.push({
+            x: x,
+            y: y,
+            angle: Math.random() * 2 * Math.PI,
+            speed: Math.random() * 4 + 1,
+            life: 100
+          });
+        }
+      }
+      update() {
+        this.particles.forEach(p => {
+          p.x += Math.cos(p.angle) * p.speed;
+          p.y += Math.sin(p.angle) * p.speed;
+          p.life--;
+        });
+      }
+      draw(ctx) {
+        this.particles.forEach(p => {
+          ctx.fillStyle = this.color;
+          ctx.globalAlpha = p.life / 100;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 2, 0, 2 * Math.PI);
+          ctx.fill();
+        });
+      }
+    }
+
+    let fireworks = [];
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (Math.random() < 0.08) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height / 2;
+        const colors = ["#ff1744", "#ffea00", "#00e676", "#2979ff", "#d500f9"];
+        fireworks.push(new Firework(x, y, colors[Math.floor(Math.random()*colors.length)]));
+      }
+      fireworks.forEach((fw, i) => {
+        fw.update();
+        fw.draw(ctx);
+        fw.particles = fw.particles.filter(p => p.life > 0);
+        if (fw.particles.length === 0) fireworks.splice(i, 1);
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    window.onresize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    // 💌 Mostrar mensaje secreto
+    function showMessage() {
+      document.getElementById("secretMessage").style.display = "block";
+    }
+  </script>
 </body>
 </html>
