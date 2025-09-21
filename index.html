@@ -31,23 +31,30 @@
   }
   .ramo {
     display: flex;
-    gap: 15px;
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-end;
+    gap: 10px;
     z-index: 1;
+    position: relative;
+    animation: sway 3s ease-in-out infinite alternate;
   }
-  .girasol {
-    width: 60px;
-    height: 60px;
+  @keyframes sway {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
+    100% { transform: translateX(-5px); }
+  }
+  .flor {
+    width: 50px;
+    height: 50px;
     background: yellow;
     border-radius: 50%;
     position: relative;
   }
-  .girasol::after {
+  .flor::after {
     content: '';
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     background: brown;
     border-radius: 50%;
     position: absolute;
@@ -56,7 +63,7 @@
     transform: translate(-50%, -50%);
   }
   .tallo {
-    width: 8px;
+    width: 6px;
     height: 80px;
     background: green;
     margin: 0 auto;
@@ -74,13 +81,22 @@
 <body>
   <div class="balloons">🎈 L❤️VE 🎈</div>
   <div class="message">Para mi Jakeline 💛<br>Eres mi sol en cada amanecer 🌞</div>
+  
   <div class="ramo">
-    <div><div class="girasol"></div><div class="tallo"></div></div>
-    <div><div class="girasol"></div><div class="tallo"></div></div>
-    <div><div class="girasol"></div><div class="tallo"></div></div>
-    <div><div class="girasol"></div><div class="tallo"></div></div>
+    <div><div class="flor"></div><div class="tallo"></div></div>
+    <div><div class="flor"></div><div class="tallo"></div></div>
+    <div><div class="flor"></div><div class="tallo"></div></div>
+    <div><div class="flor"></div><div class="tallo"></div></div>
+    <div><div class="flor"></div><div class="tallo"></div></div>
+    <div><div class="flor"></div><div class="tallo"></div></div>
+    <div><div class="flor"></div><div class="tallo"></div></div>
+    <div><div class="flor"></div><div class="tallo"></div></div>
+    <div><div class="flor"></div><div class="tallo"></div></div>
+    <div><div class="flor"></div><div class="tallo"></div></div>
   </div>
+
   <canvas id="fireworks"></canvas>
+
 <script>
   const canvas = document.getElementById('fireworks');
   const ctx = canvas.getContext('2d');
@@ -94,23 +110,51 @@
       this.y = y;
       this.particles = [];
       for (let i = 0; i < 100; i++) {
-        this.particles.push({x:x, y:y, vx:(Math.random()-0.5)*4, vy:(Math.random()-0.5)*4, life:100});
+        this.particles.push({
+          x: x,
+          y: y,
+          vx: (Math.random() - 0.5) * 4,
+          vy: (Math.random() - 0.5) * 4,
+          life: 100
+        });
       }
     }
     update() {
-      this.particles.forEach(p => {p.x+=p.vx; p.y+=p.vy; p.vy+=0.02; p.life--;});
+      this.particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.02;
+        p.life--;
+      });
     }
-    draw() {this.particles.forEach(p=>{if(p.life>0){ctx.fillStyle=`hsl(${Math.random()*360},100%,50%)`;ctx.fillRect(p.x,p.y,2,2);}});}
+    draw() {
+      this.particles.forEach(p => {
+        if (p.life > 0) {
+          ctx.fillStyle = `hsl(${Math.random()*360},100%,50%)`;
+          ctx.fillRect(p.x, p.y, 2, 2);
+        }
+      });
+    }
   }
 
-  function animate(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    fireworks.forEach((fw,i)=>{fw.update();fw.draw();if(fw.particles.every(p=>p.life<=0)){fireworks.splice(i,1);}});
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    fireworks.forEach((fw, i) => {
+      fw.update();
+      fw.draw();
+      if (fw.particles.every(p => p.life <= 0)) {
+        fireworks.splice(i, 1);
+      }
+    });
     requestAnimationFrame(animate);
   }
   animate();
 
-  setInterval(()=>{const x=Math.random()*canvas.width; const y=Math.random()*canvas.height/2; fireworks.push(new Firework(x,y));},700);
+  setInterval(() => {
+    const x = Math.random() * canvas.width;
+    const y = Math.random() * canvas.height / 2;
+    fireworks.push(new Firework(x, y));
+  }, 700);
 </script>
 </body>
 </html>
