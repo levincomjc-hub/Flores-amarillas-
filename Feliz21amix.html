@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>🌟 Feliz 21 Amigos 🌟</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: #111;
+      font-family: 'Segoe Script', cursive;
+      color: white;
+    }
+
+    /* Globos */
+    .balloons {
+      position: absolute;
+      top: 10px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      z-index: 2;
+    }
+
+    .balloon-row {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+    }
+
+    .balloon {
+      width: 60px;
+      height: 80px;
+      border-radius: 50% 50% 45% 45%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-weight: bold;
+      text-shadow: 1px 1px 4px #000;
+      animation: float 5s ease-in-out infinite;
+      position: relative;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(0,150,255,0.8));
+    }
+
+    @keyframes float {
+      0%,100%{ transform: translateY(0); }
+      50%{ transform: translateY(-15px); }
+    }
+
+    .balloon::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      width: 2px;
+      height: 20px;
+      background: #fff;
+    }
+
+    /* Estrellas en círculo */
+    .circle-stars {
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      font-size: 2em;
+      color: #ffd700;
+      text-shadow: 0 0 5px #fff, 0 0 10px #ffea00;
+      animation: glow 2s ease-in-out infinite alternate;
+      line-height: 0.7em;
+      z-index: 2;
+    }
+
+    .circle-stars div { margin:0; }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #fff,0 0 10px #ffd700; transform: translateX(-50%) scale(1); }
+      to { text-shadow: 0 0 15px #fff,0 0 25px #ffd700; transform: translateX(-50%) scale(1.05); }
+    }
+
+    /* Mensaje central */
+    .message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2.3em;
+      color: #00ffcc;
+      text-shadow: 0 0 15px #00ffe0,0 0 30px #00ffcc;
+      z-index: 2;
+      text-align: center;
+    }
+
+    /* Botón llamativo */
+    .btn {
+      position: absolute;
+      top: 65%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #00bfa5;
+      color: #fff;
+      font-size: 1.4em;
+      font-weight: bold;
+      padding: 16px 32px;
+      border-radius: 35px;
+      text-decoration: none;
+      box-shadow: 0 0 20px rgba(0,191,165,0.8);
+      cursor: pointer;
+      transition: 0.3s;
+      z-index: 2;
+    }
+
+    .btn:hover {
+      background: #00e5ff;
+      transform: translate(-50%, -50%) scale(1.15);
+      box-shadow: 0 0 35px rgba(0,229,255,1);
+    }
+
+    /* Mensaje secreto */
+    .hidden-message {
+      position: absolute;
+      top: 75%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.3em;
+      color: #ffab00;
+      text-shadow: 0 0 10px #ffc400;
+      z-index: 2;
+      display: none;
+      width: 80%;
+      max-width: 600px;
+      text-align: center;
+      line-height: 1.5em;
+      animation: fadeIn 2s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity:0; transform: translate(-50%, -40%); }
+      to { opacity:1; transform: translate(-50%, -50%); }
+    }
+
+    /* Canvas de fuegos artificiales */
+    canvas { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; }
+  </style>
+</head>
+<body>
+  <canvas id="fireworks"></canvas>
+
+  <!-- Globos -->
+  <div class="balloons">
+    <div class="balloon-row">
+      <div class="balloon">F</div>
+      <div class="balloon">E</div>
+      <div class="balloon">L</div>
+      <div class="balloon">I</div>
+      <div class="balloon">Z</div>
+      <div style="width:20px"></div>
+      <div class="balloon">2</div>
+      <div class="balloon">1</div>
+    </div>
+    <div class="balloon-row">
+      <div class="balloon">❤️</div>
+      <div class="balloon">A</div>
+      <div class="balloon">M</div>
+      <div class="balloon">I</div>
+      <div class="balloon">G</div>
+      <div class="balloon">O</div>
+      <div class="balloon">S</div>
+      <div class="balloon">❤️</div>
+    </div>
+  </div>
+
+  <!-- Estrellas en círculo -->
+  <div class="circle-stars">
+    <div>🌟🌟🌟🌟🌟</div>
+    <div>🌟🌟   🌟🌟</div>
+    <div>🌟     🌟</div>
+    <div>🌟🌟   🌟🌟</div>
+    <div>🌟🌟🌟🌟🌟</div>
+  </div>
+
+  <!-- Mensaje central -->
+  <div class="message">Aunque estemos lejos, su amistad es un regalo 💛</div>
+
+  <!-- Botón llamativo -->
+  <button class="btn" onclick="showMessage()">💌 Para ustedes 💌</button>
+
+  <!-- Mensaje secreto -->
+  <div class="hidden-message" id="secretMessage">
+    “Gracias por ser amigos increíbles,<br>
+    por cada risa, apoyo y recuerdo compartido,<br>
+    aunque la distancia nos separe,<br>
+    su amistad siempre estará en mi corazón.” 💕✨
+  </div>
+
+  <script>
+    const canvas = document.getElementById("fireworks");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    class Firework {
+      constructor(x, y, color) {
+        this.x = x; this.y = y; this.color = color; this.particles = [];
+        for (let i=0;i<50;i++){
+          this.particles.push({x:x, y:y, angle:Math.random()*2*Math.PI, speed:Math.random()*4+1, life:100});
+        }
+      }
+      update() { this.particles.forEach(p=>{p.x+=Math.cos(p.angle)*p.speed;p.y+=Math.sin(p.angle)*p.speed;p.life--;});}
+      draw(ctx){this.particles.forEach(p=>{ctx.fillStyle=this.color;ctx.globalAlpha=p.life/100;ctx.beginPath();ctx.arc(p.x,p.y,2,0,2*Math.PI);ctx.fill();});}
+    }
+
+    let fireworks=[];
+    function animate(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      if(Math.random()<0.08){
+        const x=Math.random()*canvas.width;
+        const y=Math.random()*canvas.height/2;
+        const colors=["#ff1744","#ffea00","#00e676","#2979ff","#d500f9"];
+        fireworks.push(new Firework(x,y,colors[Math.floor(Math.random()*colors.length)]));
+      }
+      fireworks.forEach((fw,i)=>{fw.update();fw.draw(ctx);fw.particles=fw.particles.filter(p=>p.life>0);if(fw.particles.length===0)fireworks.splice(i,1);});
+      requestAnimationFrame(animate);
+    }
+    animate();
+    window.onresize=()=>{canvas.width=window.innerWidth; canvas.height=window.innerHeight;}
+    function showMessage(){document.getElementById("secretMessage").style.display="block";}
+  </script>
+</body>
+</html>
