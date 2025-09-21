@@ -13,165 +13,188 @@
       color: white;
     }
 
-    /* Globos con LOVE */
+    /* Globos separados en dos líneas con brillo */
     .balloons {
       position: absolute;
-      top: 20px;
-      display: flex;
-      gap: 20px;
-      justify-content: center;
+      top: 10px;
       width: 100%;
-      font-size: 3em;
-      font-weight: bold;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
       z-index: 2;
     }
 
+    .balloon-row {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+    }
+
     .balloon {
-      width: 80px;
-      height: 100px;
-      background: red;
+      width: 60px;
+      height: 80px;
       border-radius: 50% 50% 45% 45%;
-      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
       color: white;
+      font-weight: bold;
       text-shadow: 1px 1px 4px #000;
       animation: float 6s ease-in-out infinite;
+      position: relative;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(255,0,0,0.8));
     }
 
-    .balloon:nth-child(2) { background: pink; animation-delay: 1s; }
-    .balloon:nth-child(3) { background: purple; animation-delay: 2s; }
-    .balloon:nth-child(4) { background: crimson; animation-delay: 3s; }
+    .balloon:nth-child(1) { background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(255,0,0,0.8)); }
+    .balloon:nth-child(2) { background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(255,192,203,0.8)); }
+    .balloon:nth-child(3) { background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(128,0,128,0.8)); }
+    .balloon:nth-child(4) { background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(220,20,60,0.8)); }
+    .balloon:nth-child(5) { background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(255,165,0,0.8)); }
 
     @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
+      0%,100%{ transform: translateY(0); }
+      50%{ transform: translateY(-15px); }
     }
 
     .balloon::after {
       content: '';
       position: absolute;
-      bottom: -20px;
+      bottom: -15px;
       width: 2px;
-      height: 30px;
+      height: 20px;
       background: #fff;
     }
 
-    /* Mensaje en el medio con brillo */
+    /* Ramo de flores en círculo */
+    .emoji-ramo {
+      position: absolute;
+      top: 22%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      font-size: 2.3em;
+      color: #ffeb3b;
+      text-shadow: 0 0 5px #fff176, 0 0 10px #ffeb3b, 0 0 15px #ffd600;
+      animation: glow 2s ease-in-out infinite alternate;
+      z-index: 2;
+      line-height: 0.6em;
+    }
+
+    .emoji-ramo div { margin:0; }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #fff176,0 0 10px #ffeb3b; transform: translateX(-50%) scale(1); }
+      to { text-shadow: 0 0 15px #fff176,0 0 25px #ffeb3b,0 0 35px #ffd600; transform: translateX(-50%) scale(1.05); }
+    }
+
+    /* Mensaje central */
     .message {
       position: absolute;
-      top: 40%;
+      top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 3em;
+      font-size: 2.5em;
       color: #ffd600;
-      text-shadow: 0 0 15px #ffea00, 0 0 30px #ffea00;
+      text-shadow: 0 0 20px #ffea00,0 0 40px #ffea00;
       z-index: 2;
       text-align: center;
       animation: glow 2s ease-in-out infinite alternate;
     }
 
-    @keyframes glow {
-      from {
-        text-shadow: 0 0 10px #ffea00, 0 0 20px #ffd600;
-        transform: translate(-50%, -50%) scale(1);
-      }
-      to {
-        text-shadow: 0 0 25px #fff176, 0 0 45px #ffea00;
-        transform: translate(-50%, -50%) scale(1.05);
-      }
-    }
-
-    /* Botón romántico */
+    /* Botón llamativo */
     .btn {
       position: absolute;
-      top: 58%;
+      top: 65%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: #fdd835;
-      color: #000;
-      font-size: 1.2em;
+      background: #ff4081;
+      color: #fff;
+      font-size: 1.5em;
       font-weight: bold;
-      padding: 12px 24px;
-      border-radius: 25px;
+      padding: 16px 32px;
+      border-radius: 35px;
       text-decoration: none;
-      box-shadow: 0 0 15px rgba(255, 255, 0, 0.8);
+      box-shadow: 0 0 20px rgba(255,64,129,0.8);
       cursor: pointer;
       transition: 0.3s;
       z-index: 2;
     }
 
     .btn:hover {
-      background: #fbc02d;
-      transform: translate(-50%, -50%) scale(1.1);
+      background: #f50057;
+      transform: translate(-50%, -50%) scale(1.15);
+      box-shadow: 0 0 35px rgba(255,64,129,1);
     }
 
-    /* Mensaje secreto (mini poema) */
+    /* Mensaje secreto */
     .hidden-message {
       position: absolute;
-      top: 72%;
+      top: 75%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 1.3em;
+      font-size: 1.4em;
       color: #ff80ab;
-      text-shadow: 0 0 10px #ff4081;
+      text-shadow: 0 0 15px #ff4081;
       z-index: 2;
       display: none;
       width: 80%;
       max-width: 600px;
       text-align: center;
-      line-height: 1.6em;
+      line-height: 1.5em;
       animation: fadeIn 2s ease-in-out forwards;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translate(-50%, -40%); }
-      to { opacity: 1; transform: translate(-50%, -50%); }
-    }
-
-    /* Imagen del ramo */
-    .bouquet {
-      position: absolute;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      max-width: 250px;
-      border-radius: 12px;
-      box-shadow: 0px 0px 15px rgba(255, 215, 0, 0.6);
-      z-index: 2;
+      from { opacity:0; transform: translate(-50%, -40%); }
+      to { opacity:1; transform: translate(-50%, -50%); }
     }
 
     /* Canvas de fuegos artificiales */
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-    }
+    canvas { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; }
   </style>
 </head>
 <body>
-  <!-- Fuegos artificiales -->
   <canvas id="fireworks"></canvas>
 
-  <!-- Globos con LOVE -->
+  <!-- Globos -->
   <div class="balloons">
-    <div class="balloon">L</div>
-    <div class="balloon">O</div>
-    <div class="balloon">V</div>
-    <div class="balloon">E</div>
+    <div class="balloon-row">
+      <div class="balloon">F</div>
+      <div class="balloon">E</div>
+      <div class="balloon">L</div>
+      <div class="balloon">I</div>
+      <div class="balloon">Z</div>
+      <div style="width:20px"></div>
+      <div class="balloon">2</div>
+      <div class="balloon">1</div>
+    </div>
+    <div class="balloon-row">
+      <div class="balloon">❤️</div>
+      <div class="balloon">L</div>
+      <div class="balloon">O</div>
+      <div class="balloon">V</div>
+      <div class="balloon">E</div>
+      <div class="balloon">❤️</div>
+    </div>
   </div>
 
-  <!-- Mensaje en el medio -->
-  <div class="message">🌼 Para ti, mi amada Jakeline 💛</div>
+  <!-- Ramo circular -->
+  <div class="emoji-ramo">
+    <div>🌼🌼🌼🌼🌼</div>
+    <div>🌼🌼   🌼🌼</div>
+    <div>🌼     🌼</div>
+    <div>🌼🌼   🌼🌼</div>
+    <div>🌼🌼🌼🌼🌼</div>
+  </div>
 
-  <!-- Botón romántico -->
-  <button class="btn" onclick="showMessage()">💌 Para ti</button>
+  <!-- Mensaje central -->
+  <div class="message">🌼 Para ti, mi amada Jakeline con mucho amor 💛</div>
 
-  <!-- Mensaje secreto (mini poema) -->
+  <!-- Botón llamativo -->
+  <button class="btn" onclick="showMessage()">💌 Toca aquí, amor 💌</button>
+
+  <!-- Mensaje secreto -->
   <div class="hidden-message" id="secretMessage">
     “En cada flor amarilla,<br>
     te envío un pedacito de mi alma,<br>
@@ -183,11 +206,7 @@
     te guardo siempre en mi corazón.” 💕✨
   </div>
 
-  <!-- Imagen de ramo -->
-  <img class="bouquet" src="https://i.ibb.co/jMw3hpL/ramo-flores-amarillas.jpg" alt="Ramo de flores amarillas">
-
   <script>
-    // 🎆 Fuegos artificiales
     const canvas = document.getElementById("fireworks");
     const ctx = canvas.getContext("2d");
     canvas.width = window.innerWidth;
@@ -195,66 +214,30 @@
 
     class Firework {
       constructor(x, y, color) {
-        this.x = x;
-        this.y = y;
-        this.color = color;
-        this.particles = [];
-        for (let i = 0; i < 50; i++) {
-          this.particles.push({
-            x: x,
-            y: y,
-            angle: Math.random() * 2 * Math.PI,
-            speed: Math.random() * 4 + 1,
-            life: 100
-          });
+        this.x = x; this.y = y; this.color = color; this.particles = [];
+        for (let i=0;i<50;i++){
+          this.particles.push({x:x, y:y, angle:Math.random()*2*Math.PI, speed:Math.random()*4+1, life:100});
         }
       }
-      update() {
-        this.particles.forEach(p => {
-          p.x += Math.cos(p.angle) * p.speed;
-          p.y += Math.sin(p.angle) * p.speed;
-          p.life--;
-        });
-      }
-      draw(ctx) {
-        this.particles.forEach(p => {
-          ctx.fillStyle = this.color;
-          ctx.globalAlpha = p.life / 100;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, 2, 0, 2 * Math.PI);
-          ctx.fill();
-        });
-      }
+      update() { this.particles.forEach(p=>{p.x+=Math.cos(p.angle)*p.speed;p.y+=Math.sin(p.angle)*p.speed;p.life--;});}
+      draw(ctx){this.particles.forEach(p=>{ctx.fillStyle=this.color;ctx.globalAlpha=p.life/100;ctx.beginPath();ctx.arc(p.x,p.y,2,0,2*Math.PI);ctx.fill();});}
     }
 
-    let fireworks = [];
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      if (Math.random() < 0.08) {
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height / 2;
-        const colors = ["#ff1744", "#ffea00", "#00e676", "#2979ff", "#d500f9"];
-        fireworks.push(new Firework(x, y, colors[Math.floor(Math.random()*colors.length)]));
+    let fireworks=[];
+    function animate(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      if(Math.random()<0.08){
+        const x=Math.random()*canvas.width;
+        const y=Math.random()*canvas.height/2;
+        const colors=["#ff1744","#ffea00","#00e676","#2979ff","#d500f9"];
+        fireworks.push(new Firework(x,y,colors[Math.floor(Math.random()*colors.length)]));
       }
-      fireworks.forEach((fw, i) => {
-        fw.update();
-        fw.draw(ctx);
-        fw.particles = fw.particles.filter(p => p.life > 0);
-        if (fw.particles.length === 0) fireworks.splice(i, 1);
-      });
+      fireworks.forEach((fw,i)=>{fw.update();fw.draw(ctx);fw.particles=fw.particles.filter(p=>p.life>0);if(fw.particles.length===0)fireworks.splice(i,1);});
       requestAnimationFrame(animate);
     }
     animate();
-
-    window.onresize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-
-    // 💌 Mostrar mensaje secreto
-    function showMessage() {
-      document.getElementById("secretMessage").style.display = "block";
-    }
+    window.onresize=()=>{canvas.width=window.innerWidth; canvas.height=window.innerHeight;}
+    function showMessage(){document.getElementById("secretMessage").style.display="block";}
   </script>
 </body>
 </html>
