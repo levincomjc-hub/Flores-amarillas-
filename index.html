@@ -1,125 +1,116 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Para Jakeline 💛</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background: #fff7d8;
-      font-family: 'Poppins', sans-serif;
-      overflow: hidden;
-    }
-    h1 {
-      font-size: 3em;
-      color: #ff4d6d;
-      margin: 10px 0;
-      text-align: center;
-    }
-    h2 {
-      font-size: 1.5em;
-      color: #444;
-      text-align: center;
-    }
-    .balloons {
-      position: absolute;
-      top: 20px;
-      width: 100%;
-      text-align: center;
-      font-size: 3em;
-    }
-    .flower {
-      margin: 20px 0;
-    }
-    .flower img {
-      width: 300px;
-      max-width: 80vw;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
-    }
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Para Jakeline 💛</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: #fff7d8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+  }
+  .balloons {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 3em;
+  }
+  .message {
+    text-align: center;
+    z-index: 2;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #ff4d6d;
+  }
+  .ramo {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-end;
+    z-index: 1;
+  }
+  .girasol {
+    width: 60px;
+    height: 60px;
+    background: yellow;
+    border-radius: 50%;
+    position: relative;
+  }
+  .girasol::after {
+    content: '';
+    width: 25px;
+    height: 25px;
+    background: brown;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .tallo {
+    width: 8px;
+    height: 80px;
+    background: green;
+    margin: 0 auto;
+  }
+  canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+</style>
 </head>
 <body>
   <div class="balloons">🎈 L❤️VE 🎈</div>
-  <div class="flower">
-    <img src="ramo.png" alt="Ramo de flores amarillas">
+  <div class="message">Para mi Jakeline 💛<br>Eres mi sol en cada amanecer 🌞</div>
+  <div class="ramo">
+    <div><div class="girasol"></div><div class="tallo"></div></div>
+    <div><div class="girasol"></div><div class="tallo"></div></div>
+    <div><div class="girasol"></div><div class="tallo"></div></div>
+    <div><div class="girasol"></div><div class="tallo"></div></div>
   </div>
-  <h1>Para mi Jakeline 💛</h1>
-  <h2>Eres mi sol en cada amanecer 🌞</h2>
-
   <canvas id="fireworks"></canvas>
+<script>
+  const canvas = document.getElementById('fireworks');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 
-  <script>
-    const canvas = document.getElementById('fireworks');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const fireworks = [];
-    class Firework {
-      constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.particles = [];
-        for (let i = 0; i < 100; i++) {
-          this.particles.push({
-            x: x,
-            y: y,
-            vx: (Math.random() - 0.5) * 4,
-            vy: (Math.random() - 0.5) * 4,
-            life: 100
-          });
-        }
-      }
-      update() {
-        this.particles.forEach(p => {
-          p.x += p.vx;
-          p.y += p.vy;
-          p.vy += 0.02;
-          p.life--;
-        });
-      }
-      draw() {
-        this.particles.forEach(p => {
-          if (p.life > 0) {
-            ctx.fillStyle = `hsl(${Math.random()*360},100%,50%)`;
-            ctx.fillRect(p.x, p.y, 2, 2);
-          }
-        });
+  const fireworks = [];
+  class Firework {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+      this.particles = [];
+      for (let i = 0; i < 100; i++) {
+        this.particles.push({x:x, y:y, vx:(Math.random()-0.5)*4, vy:(Math.random()-0.5)*4, life:100});
       }
     }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      fireworks.forEach((fw, i) => {
-        fw.update();
-        fw.draw();
-        if (fw.particles.every(p => p.life <= 0)) {
-          fireworks.splice(i, 1);
-        }
-      });
-      requestAnimationFrame(animate);
+    update() {
+      this.particles.forEach(p => {p.x+=p.vx; p.y+=p.vy; p.vy+=0.02; p.life--;});
     }
-    animate();
+    draw() {this.particles.forEach(p=>{if(p.life>0){ctx.fillStyle=`hsl(${Math.random()*360},100%,50%)`;ctx.fillRect(p.x,p.y,2,2);}});}
+  }
 
-    setInterval(() => {
-      const x = Math.random() * canvas.width;
-      const y = Math.random() * canvas.height / 2;
-      fireworks.push(new Firework(x, y));
-    }, 700);
-  </script>
+  function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    fireworks.forEach((fw,i)=>{fw.update();fw.draw();if(fw.particles.every(p=>p.life<=0)){fireworks.splice(i,1);}});
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  setInterval(()=>{const x=Math.random()*canvas.width; const y=Math.random()*canvas.height/2; fireworks.push(new Firework(x,y));},700);
+</script>
 </body>
 </html>
